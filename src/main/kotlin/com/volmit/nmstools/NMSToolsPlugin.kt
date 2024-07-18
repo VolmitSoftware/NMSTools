@@ -8,7 +8,6 @@ import org.gradle.api.artifacts.repositories.ArtifactRepository
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.jvm.toolchain.JavaLanguageVersion
-import org.gradle.jvm.toolchain.JavaToolchainService
 import java.io.File
 import java.net.URI
 import java.net.URL
@@ -79,7 +78,6 @@ class NMSToolsPlugin : Plugin<Project> {
 
     private fun runBuildTools(project: Project, extension: NMSToolsExtension, force: Boolean): Unit = with(project) {
         val java = extensions.findByType(JavaPluginExtension::class.java) ?: throw GradleException("Java plugin not found")
-        val javaToolchains = extensions.getByType(JavaToolchainService::class.java) ?: throw GradleException("Java toolchain service not found")
 
         val jvm = extension.jvm.get()
         val version = extension.version.get()
@@ -90,7 +88,7 @@ class NMSToolsPlugin : Plugin<Project> {
         val buildDir = layout.buildDirectory.asFile.get()
         val buildToolsFolder = buildDir.resolve("buildtools")
         val buildToolsHint = File(m2, "org/bukkit/craftbukkit/$version/craftbukkit-$version-remapped-mojang.jar")
-        val executable = javaToolchains.launcherFor(java.toolchain).get().executablePath.asFile
+        val executable = extension.executable.get()
 
         if (!force) {
             val javaVersion = JavaVersion.toVersion(jvm)

@@ -14,7 +14,7 @@ import javax.inject.Inject
 abstract class RemapTask @Inject constructor(
     @Transient private val extension: NMSToolsExtension
 ) : DefaultTask() {
-    private val specialSourceJar = project.rootProject.layout.buildDirectory.asFile.get().resolve("tools/SpecialSource-${project.specialSourceVersion}.jar")
+    private val specialSourceJar = project.layout.buildDirectory.asFile.get().resolve("tools/SpecialSource-${project.specialSourceVersion}.jar")
 
     @InputFile
     @get:PathSensitive(PathSensitivity.RELATIVE)
