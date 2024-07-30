@@ -104,7 +104,8 @@ abstract class RemapTask @Inject constructor(
                 "-o",
                 outputFile.absolutePath,
                 "-m",
-                findMap("maps-spigot-members.csrg"))
+                findMap("maps-spigot-members.csrg"),
+                "--reverse")
             val env = HashMap(it.environment)
             env["JAVA_HOME"] = getExecutable().parentFile.parentFile.absolutePath
             it.environment = env
