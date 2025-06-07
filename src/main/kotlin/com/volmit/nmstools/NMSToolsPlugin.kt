@@ -21,7 +21,7 @@ class NMSToolsPlugin : Plugin<Project> {
         val java = extensions.findByType(JavaPluginExtension::class.java) ?: throw GradleException("Java plugin not found")
         java.toolchain.languageVersion.set(ext.jvm.map(JavaLanguageVersion::of))
 
-        val remap = tasks.create("remap", RemapTask::class.java, ext)
+        val remap = tasks.register("remap", RemapTask::class.java, ext)
         tasks.getByName("build").finalizedBy(remap)
 
         val repository: ArtifactRepository
@@ -108,7 +108,7 @@ class NMSToolsPlugin : Plugin<Project> {
         if (!buildToolsFolder.exists() && !buildToolsFolder.mkdirs())
             throw GradleException("BuildTools folder could not be created")
 
-        javaexec {
+        providers.javaexec {
             it.executable = executable.absolutePath
             it.classpath = files(buildToolsJar)
             it.workingDir = buildToolsFolder

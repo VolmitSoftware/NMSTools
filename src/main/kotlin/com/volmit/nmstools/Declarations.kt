@@ -10,4 +10,4 @@ val Project.useBuiltTools: Boolean
     get() = findProperty("nmsTools.useBuildTools")?.toString()?.toBoolean() ?: false
 
 val Project.specialSourceVersion: String
-    get() = findProperty("nmsTools.specialSourceVersion")?.toString() ?: "1.11.4"
+    get() = findProperty("nmsTools.specialSourceVersion")?.toString() ?: "1.11.5"

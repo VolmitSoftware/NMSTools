@@ -51,7 +51,7 @@ abstract class RemapTask @Inject constructor(
 
 
     private fun obfuscate(): Unit = with(project) {
-        project.javaexec {
+        providers.javaexec {
             it.executable = getExecutable().absolutePath
             it.workingDir = tmpDirectory
             it.classpath = files(specialSourceJar, findJar("remapped-mojang.jar"))
@@ -72,7 +72,7 @@ abstract class RemapTask @Inject constructor(
     }
 
     private fun remap(): Unit = with(project) {
-        project.javaexec {
+        providers.javaexec {
             it.executable = getExecutable().absolutePath
             it.workingDir = tmpDirectory
             it.classpath = files(specialSourceJar, findJar("remapped-obf.jar"))
@@ -92,7 +92,7 @@ abstract class RemapTask @Inject constructor(
     }
 
     private fun remapMembers(): Unit = with(project) {
-        project.javaexec {
+        providers.javaexec {
             it.executable = getExecutable().absolutePath
             it.workingDir = tmpDirectory
             it.classpath = files(specialSourceJar, findJar("remapped-obf.jar"))
