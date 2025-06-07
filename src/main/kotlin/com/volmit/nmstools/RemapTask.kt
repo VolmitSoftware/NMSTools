@@ -27,6 +27,8 @@ abstract class RemapTask @Inject constructor(
     init {
         group = "nms"
         dependsOn("jar")
+        inputs.file(inputFile)
+        outputs.file(outputFile)
     }
 
     @TaskAction
@@ -68,7 +70,7 @@ abstract class RemapTask @Inject constructor(
             val env = HashMap(it.environment)
             env["JAVA_HOME"] = getExecutable().parentFile.parentFile.absolutePath
             it.environment = env
-        }
+        }.result.get()
     }
 
     private fun remap(): Unit = with(project) {
@@ -88,7 +90,7 @@ abstract class RemapTask @Inject constructor(
             val env = HashMap(it.environment)
             env["JAVA_HOME"] = getExecutable().parentFile.parentFile.absolutePath
             it.environment = env
-        }
+        }.result.get()
     }
 
     private fun remapMembers(): Unit = with(project) {
@@ -109,7 +111,7 @@ abstract class RemapTask @Inject constructor(
             val env = HashMap(it.environment)
             env["JAVA_HOME"] = getExecutable().parentFile.parentFile.absolutePath
             it.environment = env
-        }
+        }.result.get()
     }
 
     private fun findJar(name: String): File {
